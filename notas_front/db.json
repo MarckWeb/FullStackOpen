@@ -1,0 +1,101 @@
+{
+  "posts": [
+    {
+      "id": "1",
+      "title": "a title",
+      "important": false
+    },
+    {
+      "id": "2",
+      "title": "another title",
+      "important": false
+    },
+    {
+      "id": "78e4",
+      "content": "nueva nota",
+      "date": "2024-01-20T03:52:39.324Z",
+      "important": false
+    },
+    {
+      "id": "39e3",
+      "content": "una nueva nota",
+      "date": "2024-01-20T03:54:00.547Z",
+      "important": true
+    },
+    {
+      "id": "f3f3",
+      "content": "mas notas",
+      "date": "2024-01-20T03:57:02.745Z",
+      "important": true
+    },
+    {
+      "id": "5fcc",
+      "content": "mas notas asasasa",
+      "date": "2024-01-20T04:00:20.955Z",
+      "important": true
+    },
+    {
+      "id": "d437",
+      "content": "asasasa",
+      "date": "2024-01-20T04:00:26.796Z",
+      "important": true
+    },
+    {
+      "id": "60f9",
+      "content": "otra nota",
+      "date": "2024-01-20T04:01:08.267Z",
+      "important": true
+    },
+    {
+      "id": "d3a4",
+      "content": "xz",
+      "date": "2024-01-20T04:02:10.895Z",
+      "important": true
+    },
+    {
+      "id": "8fa7",
+      "content": "asas",
+      "date": "2024-01-20T04:36:20.523Z",
+      "important": true
+    },
+    {
+      "id": "8bd5",
+      "content": "asasdasdas haber",
+      "date": "2024-01-20T04:37:10.044Z",
+      "important": true
+    },
+    {
+      "id": "5f3b",
+      "content": "oppo",
+      "date": "2024-01-20T04:37:17.015Z",
+      "important": false
+    },
+    {
+      "id": "54f3",
+      "content": "asas",
+      "date": "2024-01-20T04:38:05.290Z",
+      "important": false
+    },
+    {
+      "id": "fcbe",
+      "content": "wwwwww",
+      "date": "2024-01-20T04:41:42.270Z",
+      "important": false
+    }
+  ],
+  "comments": [
+    {
+      "id": "1",
+      "text": "a comment about post 1",
+      "postId": "1"
+    },
+    {
+      "id": "2",
+      "text": "another comment about post 1",
+      "postId": "1"
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}
