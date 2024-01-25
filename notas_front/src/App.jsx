@@ -17,7 +17,6 @@ const App = () => {
   const [errorMessage, setErrorMessage] = useState(null)
 
   const noteFormRef = useRef()
-  console.log(noteFormRef)
 
   useEffect(() => {
     noteService
