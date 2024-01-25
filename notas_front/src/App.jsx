@@ -1,5 +1,5 @@
 import './App.css'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Ref, useRef } from 'react'
 import Note from './components/Note'
 import Notification from './components/Notifications'
 import Footer from './components/Footer'
@@ -9,8 +9,6 @@ import Togglable from './components/Togglable'
 import noteService from './services/notes'
 import loginService from './services/login'
 
-
-
 const App = () => {
   const [notes, setNotes] = useState([])
   const [user, setUser] = useState(null)
@@ -18,6 +16,8 @@ const App = () => {
   const [showAll, setShowAll] = useState(true)
   const [errorMessage, setErrorMessage] = useState(null)
 
+  const noteFormRef = useRef()
+  console.log(noteFormRef)
 
   useEffect(() => {
     noteService
@@ -61,14 +61,13 @@ const App = () => {
 
 
   const addNote = (noteObject) => {
+    noteFormRef.current.toggleVisibility()
     noteService
       .create(noteObject)
       .then(returnedNote => {
         setNotes(notes.concat(returnedNote))
       })
   }
-
-
 
   const notesToShow = showAll
     ? notes
@@ -98,7 +97,7 @@ const App = () => {
       <h1>Notes app</h1>
       <Notification message={errorMessage} />
       {!user &&
-        // dentro de este componente si se puedo usar prop.childern pero pero no solo cuando se crirra con <Etiqueta/> debe ser<Etiqeta>{props.children}</Etiqeta> 
+        //renderiza todo las etiquetas que esta envolviendo el componente 
         <Togglable buttonLabel="log in">
           {/* login form componenete hijo de togglable */}
           <LoginForm
@@ -109,7 +108,7 @@ const App = () => {
       {user &&
         <div>
           <p>{user.name} logged in</p>
-          <Togglable buttonLabel="new note">
+          <Togglable buttonLabel="new note" ref={noteFormRef}>
             <NoteForm createNote={addNote} />
           </Togglable>
         </div>
@@ -138,3 +137,5 @@ const App = () => {
 
 }
 export default App
+
+//NOTA-. ver que funciones se estan compartiendo en otros compoennetes y si, es mejor utilizarlo en su propio componente

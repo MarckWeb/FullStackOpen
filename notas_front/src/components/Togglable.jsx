@@ -1,7 +1,8 @@
+/* eslint-disable react/display-name */
 /* eslint-disable react/prop-types */
-import { useState } from 'react'
-
-const Togglable = (props) => {
+import { useState, forwardRef, useImperativeHandle } from 'react'
+//La función que crea el componente está envuelta dentro de una llamada de función forwardRef. De esta forma el componente puede acceder a la referencia que le está asignada.
+const Togglable = forwardRef((props, refs) => {
    const [visible, setVisible] = useState(false)
 
    const hideWhenVisible = { display: visible ? 'none' : '' }
@@ -10,6 +11,14 @@ const Togglable = (props) => {
    const toggleVisibility = () => {
       setVisible(!visible)
    }
+
+   //la función useImperativeHandle es un hook de React, que se usa para definir funciones en un componente que se pueden invocar desde fuera del componente.
+   //es decir que la funciond e su cuerpo se ejecute de cualquier componente
+   useImperativeHandle(refs, () => {
+      return {
+         toggleVisibility
+      }
+   })
 
    return (
       <div>
@@ -23,6 +32,6 @@ const Togglable = (props) => {
          </div>
       </div>
    )
-}
+})
 
 export default Togglable
