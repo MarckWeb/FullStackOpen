@@ -11,10 +11,12 @@
     "test": "jest --watchAll"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^2.1.0",
     "axios": "^1.6.5",
     "json-server": "^1.0.0-alpha.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-redux": "^9.1.0",
     "redux": "^5.0.1"
   },
   "devDependencies": {

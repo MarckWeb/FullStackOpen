@@ -6,26 +6,27 @@ import Footer from './components/Footer'
 import LoginForm from './components/LoginForm'
 import NoteForm from './components/NoteForm'
 import Togglable from './components/Togglable'
-import noteService from './services/notes'
 import loginService from './services/login'
+import noteService from './services/notes'
+import { useDispatch, useSelector } from 'react-redux'
+import { setNotes } from './reducer/notes/notesSlice'
 
 
 const App = () => {
-  const [notes, setNotes] = useState([])
-  const [user, setUser] = useState(null)
 
+  //const [notes, setNotes] = useState([])
+  const [user, setUser] = useState(null)
   const [showAll, setShowAll] = useState(true)
   const [errorMessage, setErrorMessage] = useState(null)
 
   const noteFormRef = useRef()
+  const dispatch = useDispatch()
+  const allNotes = useSelector(state => state.notes)
 
   useEffect(() => {
     noteService
-      .getAll()
-      .then(initialNotes => {
-        setNotes(initialNotes)
-      })
-  }, [])
+      .getAll().then(notes => dispatch(setNotes(notes)))
+  }, [dispatch])
 
 
   useEffect(() => {
@@ -60,26 +61,26 @@ const App = () => {
   }
 
 
-  const addNote = (noteObject) => {
-    noteFormRef.current.toggleVisibility()
-    noteService
-      .create(noteObject)
-      .then(returnedNote => {
-        setNotes(notes.concat(returnedNote))
-      })
-  }
+  // const addNote = (noteObject) => {
+  //   noteFormRef.current.toggleVisibility()
+  //   noteService
+  //     .create(noteObject)
+  //     .then(returnedNote => {
+  //       setNotes(notes.concat(returnedNote))
+  //     })
+  // }
 
   const notesToShow = showAll
-    ? notes
-    : notes.filter(note => note.important)
+    ? allNotes
+    : allNotes.filter(note => note.important)
 
   const toggleImportanceOf = id => {
-    const note = notes.find(n => n.id === id)
+    const note = allNotes.find(n => n.id === id)
     const changedNote = { ...note, important: !note.important }
 
     noteService
       .update(id, changedNote).then(returnedNote => {
-        setNotes(notes.map(note => note.id !== id ? note : returnedNote))
+        setNotes(allNotes.map(note => note.id !== id ? note : returnedNote))
       })
       .catch(error => {
         setErrorMessage(
@@ -88,7 +89,7 @@ const App = () => {
         setTimeout(() => {
           setErrorMessage(null)
         }, 5000)
-        setNotes(notes.filter(n => n.id !== id))
+        setNotes(allNotes.filter(n => n.id !== id))
       })
   }
 
@@ -109,7 +110,7 @@ const App = () => {
         <div>
           <p>{user.name} logged in</p>
           <Togglable buttonLabel="new note" ref={noteFormRef}>
-            <NoteForm createNote={addNote} />
+            <NoteForm />
           </Togglable>
         </div>
       }
@@ -120,15 +121,15 @@ const App = () => {
         </button>
       </div>
       <ul>
-        <ul>
-          {notesToShow.map(note =>
-            <Note
-              key={note.id}
-              note={note}
-              toggleImportance={() => toggleImportanceOf(note.id)}
-            />
-          )}
-        </ul>
+
+        {notesToShow.map(note =>
+          <Note
+            key={note.id}
+            note={note}
+            toggleImportance={() => toggleImportanceOf(note.id)}
+          />
+        )}
+
       </ul>
 
       <Footer />
