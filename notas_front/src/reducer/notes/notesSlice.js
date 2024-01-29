@@ -10,6 +10,21 @@ const noteSlice = createSlice({
       //    const content = action.payload
       //    state.push(content)
       // },
+      updateNote(state, action) {
+         const { id, content, important } = action.payload
+         const noteUpdate = state.find(note => note.id === id)
+         if (noteUpdate) {
+            noteUpdate.content = content,
+               noteUpdate.important = important
+         }
+      },
+
+      deleteNote(state, action) {
+         const note = state.find(task => task.id === action.payload)
+         if (note) {
+            state.splice(state.indexOf(note), 1)
+         }
+      },
       toggleImportanceOf(state, action) {
          const id = action.payload
          const noteToChange = state.find(n => n.id === id)

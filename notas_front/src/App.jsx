@@ -9,9 +9,8 @@ import Togglable from './components/Togglable'
 import loginService from './services/login'
 import noteService from './services/notes'
 import { useDispatch, useSelector } from 'react-redux'
-import { setNotes, toggleImportanceOf } from './reducer/notes/notesSlice'
+import { toggleImportanceOf } from './reducer/notes/notesSlice'
 import { initializeNotes } from './reducer/notes/notesSlice'
-
 
 const App = () => {
 
