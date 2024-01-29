@@ -9,7 +9,8 @@ import Togglable from './components/Togglable'
 import loginService from './services/login'
 import noteService from './services/notes'
 import { useDispatch, useSelector } from 'react-redux'
-import { setNotes } from './reducer/notes/notesSlice'
+import { setNotes, toggleImportanceOf } from './reducer/notes/notesSlice'
+import { initializeNotes } from './reducer/notes/notesSlice'
 
 
 const App = () => {
@@ -23,9 +24,9 @@ const App = () => {
   const dispatch = useDispatch()
   const allNotes = useSelector(state => state.notes)
 
+  //la obetncion de datos ya se hace en redux store
   useEffect(() => {
-    noteService
-      .getAll().then(notes => dispatch(setNotes(notes)))
+    dispatch(initializeNotes())
   }, [dispatch])
 
 
@@ -60,38 +61,9 @@ const App = () => {
     }
   }
 
-
-  // const addNote = (noteObject) => {
-  //   noteFormRef.current.toggleVisibility()
-  //   noteService
-  //     .create(noteObject)
-  //     .then(returnedNote => {
-  //       setNotes(notes.concat(returnedNote))
-  //     })
-  // }
-
   const notesToShow = showAll
     ? allNotes
     : allNotes.filter(note => note.important)
-
-  const toggleImportanceOf = id => {
-    const note = allNotes.find(n => n.id === id)
-    const changedNote = { ...note, important: !note.important }
-
-    noteService
-      .update(id, changedNote).then(returnedNote => {
-        setNotes(allNotes.map(note => note.id !== id ? note : returnedNote))
-      })
-      .catch(error => {
-        setErrorMessage(
-          `Note '${note.content}' was already removed from server`
-        )
-        setTimeout(() => {
-          setErrorMessage(null)
-        }, 5000)
-        setNotes(allNotes.filter(n => n.id !== id))
-      })
-  }
 
   return (
     <div>
@@ -126,7 +98,7 @@ const App = () => {
           <Note
             key={note.id}
             note={note}
-            toggleImportance={() => toggleImportanceOf(note.id)}
+            toggleImportance={() => dispatch(toggleImportanceOf(note.id))}
           />
         )}
 

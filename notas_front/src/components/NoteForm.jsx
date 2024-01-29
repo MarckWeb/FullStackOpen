@@ -1,7 +1,6 @@
 import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { createNote } from "../reducer/notes/notesSlice"
-import noteService from '../services/notes'
 
 /* eslint-disable react/prop-types */
 const NoteForm = () => {
@@ -16,10 +15,10 @@ const NoteForm = () => {
 
    const addNote = async (event) => {
       event.preventDefault()
-      const noteSave = await noteService.create({
+      const noteSave = {
          content: newNote,
          important: true
-      })
+      }
       disptach(createNote(noteSave))
       setNewNote('')
    }

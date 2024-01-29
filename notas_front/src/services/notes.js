@@ -4,10 +4,8 @@ const baseUrl = 'http://localhost:3000/api/notes'
 let token = null
 
 const setToken = newToken => {
-  console.log(newToken)
   token = `bearer ${newToken}`
 }
-console.log(token)
 
 const getAll = () => {
   const request = axios.get(baseUrl)
@@ -15,7 +13,6 @@ const getAll = () => {
 }
 
 const create = async newObject => {
-  console.log(newObject)
 
   const config = {
     headers: { Authorization: token },

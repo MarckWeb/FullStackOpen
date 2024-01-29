@@ -1,6 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import noteServicie from '../services/notes'
-import noteSlice, { setNotes } from '../reducer/notes/notesSlice'
+import noteSlice from '../reducer/notes/notesSlice'
 
 const store = configureStore({
    reducer: {
@@ -13,7 +12,5 @@ const store = configureStore({
 // noteServicie.getAll().then(notes => {
 //    store.dispatch(setNotes(notes))
 // })
-
-
 
 export default store
