@@ -5,6 +5,7 @@ const noteSlice = createSlice({
    initialState: [],
    reducers: {
       createNote(state, action) {
+         console.log(action)
          const content = action.payload
          state.push(content)
       },

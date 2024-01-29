@@ -12,9 +12,14 @@ const NoteForm = () => {
       setNewNote(event.target.value)
    }
 
+   //cuando se trabaj con axios una vez que se guardo con exito a la db recien se actualiza el estado en redux
+
    const addNote = async (event) => {
       event.preventDefault()
-      const noteSave = await noteService.create(newNote)
+      const noteSave = await noteService.create({
+         content: newNote,
+         important: true
+      })
       disptach(createNote(noteSave))
       setNewNote('')
    }
